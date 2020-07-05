@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hry.springcloud.dao.PaymentDao">
+    <!--yml中配置了type-aliases-package 别名 所以 paramterType直接写类名即可
+        useGeneratedKeys 插入成功会返回一个>0的整型
+        keyProperty 主键
+    -->
+    <insert id="create" parameterType="Payment" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO payment(serial) VALUES(#{serial});
+    </insert>
+
+    <!--映射数据库表字段与实体字段-->
+    <resultMap id="BaseResultMap" type="com.hry.springcloud.entities.Payment">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <id column="serial" property="serial" jdbcType="VARCHAR"/>
+
+    </resultMap>
+    <!--resultMap用于映射-->
+    <select id="getPaymentById" parameterType="Long" resultMap="BaseResultMap">
+        SELECT * FROM payment WHERE id=#{id};
+    </select>
+</mapper>
